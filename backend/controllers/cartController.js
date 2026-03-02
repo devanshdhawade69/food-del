@@ -12,9 +12,9 @@ const addToCart = async (req, res) => {
     }
     await usermodel.findByIdAndUpdate(req.body.userId, { cartData });
     res.json({ success: true, message: "Added To Cart" });
-    console.log("AddToCart was hit successfully");
+    console.log(new Date().toISOString(), "AddToCart was hit successfully");
   } catch (error) {
-    console.log("AddToCart was hit unsuccessfully");
+    console.log(new Date().toISOString(), "AddToCart was hit unsuccessfully");
     console.log(error);
     res.json({ success: false, message: "Error in add to cart" });
   }
@@ -30,9 +30,9 @@ const removeFromCart = async (req, res) => {
     }
     await usermodel.findByIdAndUpdate(req.body.userId, { cartData });
     res.json({ success: true, message: "Removed From Cart" });
-    console.log("removeFromCart was hit successfully");
+    console.log(new Date().toISOString(), "removeFromCart was hit successfully");
   } catch (error) {
-    console.log("removeFromCart was hit unsuccessfully");
+    console.log(new Date().toISOString(), "removeFromCart was hit unsuccessfully");
     console.log(error);
     res.json({ success: false, message: "Error in remove from cart" });
   }
@@ -44,9 +44,9 @@ const getCart = async (req, res) => {
     let userData = await usermodel.findById(req.body.userId);
     let cartData = await userData.cartData;
     res.json({ success: true, cartData });
-    console.log("getCart was hit successfully");
+    console.log(new Date().toISOString(), "getCart was hit successfully");
   } catch (error) {
-    console.log("getCart was hit unsuccessfully");
+    console.log(new Date().toISOString(), "getCart was hit unsuccessfully");
     console.log(error);
     res.json({ success: false, message: "Error in fetching cart data" });
   }

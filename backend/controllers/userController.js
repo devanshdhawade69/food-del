@@ -9,21 +9,21 @@ const loginUser = async (req, res) => {
   try {
     const user = await userModel.findOne({ email });
     if (!user) {
-      console.log("userLogin hit was successful");
+      console.log(new Date().toISOString(), "userLogin hit was successful");
       return res.json({ success: false, message: "User does not exist" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      console.log("userLogin hit was successful");
+      console.log(new Date().toISOString(), "userLogin hit was successful");
       return res.json({ success: false, message: "Invalid credentials " });
     }
 
     const token = createToken(user._id);
-    console.log("userLogin hit was successful");
+    console.log(new Date().toISOString(), "userLogin hit was successful");
     res.json({ success: true, token });
   } catch (error) {
-    console.log("userLogin hit was unsuccessful");
+    console.log(new Date().toISOString(), "userLogin hit was unsuccessful");
     console.log(error);
     res.json({ success: false, message: "Error in logining  user" });
   }
@@ -41,18 +41,18 @@ const registerUser = async (req, res) => {
     // checking if user already exists
     const exists = await userModel.findOne({ email });
     if (exists) {
-      console.log("userRegister hit was successful");
+      console.log(new Date().toISOString(), "userRegister hit was successful");
       return res.json({ success: false, message: "User already exists" });
     }
 
     // validating email format and strong password
     if (!validator.isEmail(email)) {
-      console.log("userRegister hit was successful");
+      console.log(new Date().toISOString(), "userRegister hit was successful");
       return res.json({ success: false, message: "Please enter a valid email" });
     }
 
     if (password.length < 8) {
-      console.log("userRegister hit was successful");
+      console.log(new Date().toISOString(), "userRegister hit was successful");
       return res.json({ success: false, message: "Please enter strong password" });
     }
 
@@ -69,7 +69,7 @@ const registerUser = async (req, res) => {
 
     const user = await newUser.save();
     const token = createToken(user._id);
-    console.log("userRegister hit was successful");
+    console.log(new Date().toISOString(), "userRegister hit was successful");
     res.json({ success: true, token });
   } catch (error) {
     console.log("userRegister hit was unsuccessful");

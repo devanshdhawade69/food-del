@@ -18,11 +18,11 @@ const addFood = async (req, res) => {
   try {
     await food.save();
     res.json({ success: true, message: "Food Added" });
-    console.log("addfood hit was succesful");
+    console.log(new Date().toISOString(), "addfood hit was succesful");
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error in adding food" });
-    console.log("addfood hit was unsuccesful");
+    console.log(new Date().toISOString(), "addfood hit was unsuccesful");
   }
 };
 
@@ -31,11 +31,11 @@ const listfood = async (req, res) => {
   try {
     const foods = await foodModel.find({});
     res.json({ success: true, data: foods });
-    console.log("listfood hit was succesful");
+    console.log(new Date().toISOString(), "listfood hit was succesful");
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error in listing food" });
-    console.log("listfood hit was unsuccesful");
+    console.log(new Date().toISOString(), "listfood hit was unsuccesful");
   }
 };
 
@@ -47,11 +47,11 @@ const removeFood = async (req, res) => {
 
     await foodModel.findByIdAndDelete(req.body.id);
     res.json({ success: true, message: "Food Removed" });
-    console.log("removeFoodItem hit was succesful");
+    console.log(new Date().toISOString(), "removeFoodItem hit was succesful");
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error in removing food" });
-    console.log("removeFoodItem hit was unsuccesful");
+    console.log(new Date().toISOString(), "removeFoodItem hit was unsuccesful");
   }
 };
 

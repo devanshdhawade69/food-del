@@ -48,7 +48,7 @@ const placeOrder = async (req, res) => {
     });
 
     res.json({ success: true, session_url: session.url });
-    console.log("placeOrder hit was succesful");
+    console.log(new Date().toISOString(), "placeOrder hit was succesful");
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error placing order" });
@@ -66,9 +66,9 @@ const verifyOrder = async (req, res) => {
       await orderModel.findByIdAndDelete(orderId);
       res.json({ success: false, message: "Not Paid" });
     }
-    console.log("verifyOrder hit was succesful");
+    console.log(new Date().toISOString(), "verifyOrder hit was succesful");
   } catch (error) {
-    console.log("verifyOrder hit was unsuccesful");
+    console.log(new Date().toISOString(), "verifyOrder hit was unsuccesful");
     console.log(error);
     res.json({ success: false, message: "Error verifying order" });
   }
@@ -78,13 +78,39 @@ const verifyOrder = async (req, res) => {
 const userOrders = async (req, res) => {
   try {
     const orders = await orderModel.find({ userId: req.body.userId });
-    res.json({ success: true, orders });
-    console.log("userOrders hit was succesful");
+    res.json({ success: true, data: orders });
+    console.log(new Date().toISOString(), "userOrders hit was succesful");
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error fetching orders" });
-    console.log("userOrders hit was unsuccesful");
+    console.log(new Date().toISOString(), "userOrders hit was unsuccesful");
   }
 };
 
-export { placeOrder, verifyOrder, userOrders };
+// listing orders for admin panel
+const listOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, data: orders });
+    console.log(new Date().toISOString(), "listOrders hit was succesful");
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error fetching orders" });
+    console.log("listOrders hit was unsuccesful");
+  }
+};
+
+//api for updating order status
+const updateStatus = async (req, res) => {
+  try {
+    await orderModel.findByIdAndUpdate(req.body.orderId, { status: req.body.status });
+    res.json({ success: true, message: "Status Updated" });
+    console.log(new Date().toISOString(), "updateStatus hit was succesful");
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error updating status" });
+    console.log(new Date().toISOString(), "updateStatus hit was unsuccesful");
+  }
+};
+
+export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus };
