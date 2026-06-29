@@ -1,8 +1,8 @@
 import React, { use, useContext, useState } from "react";
 import "./Navbar.css";
-import { assets } from "../../assets/assets";
+import { assets } from "../../assets/assets.js";
 import { Link, useNavigate } from "react-router-dom";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContext.jsx";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("menu");
